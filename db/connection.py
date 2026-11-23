@@ -1,4 +1,5 @@
 """Configuración de conexión SQLAlchemy para MySQL y TiDB Cloud."""
+
 import os
 from pathlib import Path
 
@@ -35,7 +36,7 @@ url = URL.create(
 connect_args = {}
 
 if "tidbcloud.com" in host:
-    ca_file = Path(_file_).resolve().parent / "isrgrootx1.pem"
+    ca_file = Path(__file__).resolve().parent / "isrgrootx1.pem"
 
     if not ca_file.exists():
         raise FileNotFoundError(
@@ -48,6 +49,7 @@ if "tidbcloud.com" in host:
         "ssl_verify_identity": True,
     }
 
+# Crear el motor de conexión.
 engine = create_engine(
     url,
     pool_pre_ping=True,
